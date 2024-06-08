@@ -3,28 +3,6 @@
 @tailwind utilities;
 
 
-:root {
-  --radius: 10px;
-  --inset: 2rem;
-  --inset-right: 0;
-  --offset: -1rem;
-  --cp-grid-item-bg: red;
-  --cp-grid-item-color: white;
-}
-
-.card-background::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: var(--offset);
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: var(--cp-grid-item-bg);
-  color: var(--cp-grid-item-color);
-  clip-path: inset(var(--inset-top, var(--inset)) var(--inset-right, var(--inset)) var(--inset-bottom, var(--inset)) var(--inset-left, var(--inset)) round var(--radius));
-  contain: strict;
-  transition: clip-path .3s ease .1s;
-}
+/* .react-codemirror2>.CodeMirror:first-child {
+  display: none;
+} */

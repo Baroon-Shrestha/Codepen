@@ -3,13 +3,12 @@ import SideNav from "./components/Navbar/SideNav";
 import NewCard from "./components/NewCard";
 import "./index.css";
 import Nav from "./components/Navbar/Nav";
-import Editor from "./components/Editor";
-
+import EditorOut from "./components/Editors/EditorOut";
 function App() {
   return (
     <>
       <Nav />
-      <Editor />
+      <EditorOut />
       {/* <div className="flex h-scree">
         <SideNav />
         <div className="flex-1 p-4">
