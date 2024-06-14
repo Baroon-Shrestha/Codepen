@@ -1,51 +1,60 @@
 import React, { useState } from "react";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 export default function SideNav() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <>
+    <div
+      className={`h-screen bg-[#000000d5] flex flex-col justify-between relative transition-all duration-300 ${
+        isOpen ? "w-48 translate-x-0" : "w-0 -translate-x-full"
+      }`}
+    >
       <div
-        className={`w-[15%] h-screen bg-black flex flex-col justify-between relative transition-transform duration-300 ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`flex flex-col gap-3 text-white p-4 ${!isOpen && "hidden"}`}
       >
-        <div className="flex flex-col gap-3 text-white">
-          <div className="">
-            <img src="codepen-main-white.png" alt="" />
+        <Link to="/">
+          <div className="w-[150px] ">
+            <img src="codepen-main-white.png" alt="Codepen Logo" />
           </div>
-          <div className="text-2xl rounded-md transition duration-500 ease-out hover:bg-violet-600">
-            <h1 className="">Start coding</h1>
+        </Link>
+        <Link to="/code-editor">
+          <div className="text-xl rounded-md transition duration-500 ease-out hover:bg-violet-600 p-2">
+            <h1>Start coding</h1>
           </div>
-          <div className="text-2xl rounded-md transition duration-500 ease-out hover:bg-violet-600">
-            <h1 className="">Browse Items</h1>
+        </Link>
+        <Link to="/projects">
+          <div className="text-xl rounded-md transition duration-500 ease-out hover:bg-violet-600 p-2">
+            <h1>View Projects</h1>
           </div>
-          <div className="text-2xl rounded-md transition duration-500 ease-out hover:bg-violet-600">
-            <h1 className="">Spark</h1>
+        </Link>
+        <Link to="/yourprojects">
+          <div className="text-xl rounded-md transition duration-500 ease-out hover:bg-violet-600 p-2">
+            <h1>Your projects</h1>
           </div>
-        </div>
-        <div className="mb-3 text-white">
-          <p>Additional Text</p>
-        </div>
-        <div
-          className="absolute -end-10 p-3 top-10 bg-slate-400 flex align-center justify-center"
-          onClick={toggleMenu}
-        >
-          <button>
-            {!isOpen ? (
-              <FaBarsStaggered className="text-black text-2xl" />
-            ) : (
-              <IoClose className="text-black text-3xl" />
-            )}
-          </button>
-        </div>
+        </Link>
       </div>
-    </>
+      <div className={`mb-3 text-white p-4 ${!isOpen && "hidden"}`}>
+        <p>Additional Text</p>
+      </div>
+      <div
+        className={`absolute p-3 top-10 bg-slate-400 flex items-center justify-center cursor-pointer transition-all duration-300 ${
+          isOpen ? "-right-6" : "-right-8"
+        }`}
+        onClick={toggleMenu}
+      >
+        {!isOpen ? (
+          <FaBarsStaggered className="text-black text-sm" />
+        ) : (
+          <IoClose className="text-black text-sm" />
+        )}
+      </div>
+    </div>
   );
 }
