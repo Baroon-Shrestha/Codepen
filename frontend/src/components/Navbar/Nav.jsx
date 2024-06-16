@@ -33,7 +33,8 @@ export default function Nav({ save, title }) {
           </div>
           {loggedIn ? (
             <div className="text-white flex items-center">
-              welcome, {loggedIn.user.userName}
+              welcome,&nbsp;{" "}
+              <span className="text-green-400">{loggedIn.user.userName}</span>
             </div>
           ) : (
             <>

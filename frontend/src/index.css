@@ -9,14 +9,17 @@
   box-sizing: border-box;
   font-family: "Telefon", Sans-Serif;
   font-weight: 400;
-
-}
-
-.radius {
-  border-top-right-radius: 15px;
-  border-top-left-radius: 15px;
+  color: white
 }
 
 .codeMirror {
   width: 100% !important;
+}
+
+.open {
+  color: black;
+}
+
+.close {
+  color: black;
 }

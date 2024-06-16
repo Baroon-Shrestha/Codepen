@@ -12,7 +12,7 @@ export default function SideNav() {
 
   return (
     <div
-      className={`h-screen bg-[#000000d5] flex flex-col justify-between relative transition-all duration-300 ${
+      className={`h-screen bg-[#131417] flex flex-col justify-between relative transition-all duration-300 ${
         isOpen ? "w-48 translate-x-0" : "w-0 -translate-x-full"
       }`}
     >

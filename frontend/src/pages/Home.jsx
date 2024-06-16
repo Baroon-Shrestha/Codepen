@@ -8,7 +8,7 @@ import MainNav from "../components/Navbar/MainNav";
 
 export default function Home() {
   return (
-    <div>
+    <div className="bg-secondary text-white">
       <MainNav>
         <Hero />
         <AllCard />

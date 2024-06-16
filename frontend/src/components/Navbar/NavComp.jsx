@@ -23,7 +23,10 @@ export default function NavComp() {
         <div className="flex gap-2">
           {loggedIn ? (
             <div className="flex gap-4 items-center justify-center">
-              <div>Welcome, {loggedIn.user.userName}</div>
+              <div>
+                Welcome,{" "}
+                <span className="text-green-400">{loggedIn.user.userName}</span>
+              </div>
               <div className="p-2 bg-green-400  rounded-md">
                 <button onClick={handleLogout}>Logout</button>
               </div>

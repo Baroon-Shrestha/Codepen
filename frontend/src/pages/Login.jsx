@@ -38,77 +38,79 @@ export default function Login() {
 
   return (
     <MainNav>
-      <div className="flex items-center justify-center">
-        <div className="grid grid-cols-2 gap-4 w-full max-w-4xl p-4">
-          <div className="flex flex-col items-center justify-center">
-            <div className="w-[170px]">
-              <img src="./codepen-black.png" alt="CodePen Logo" />
+      <div className="flex items-center justify-center ">
+        <div className="">
+          <div className="grid grid-cols-2 gap-4 w-full max-w-4xl p-4">
+            <div className="flex flex-col gap-10 items-center justify-center">
+              <div className="w-[170px]">
+                <img src="./codepen-white.png" alt="CodePen Logo" />
+              </div>
+              <div>
+                <h1 className="text-center text-5xl">
+                  Welcome to <span className="font-bold">CODEPEN</span>
+                </h1>
+              </div>
             </div>
-            <div>
-              <h1 className="text-center text-5xl">
-                Welcome to <span className="font-bold">CODEPEN</span>
-              </h1>
+            <div className="flex items-center justify-center ">
+              <form
+                className="e p-8 rounded-3xl shadow-md w-full max-w-md bg-primary"
+                onSubmit={loginFunc}
+              >
+                <div className="mb-4">
+                  <label
+                    htmlFor="email"
+                    className="block text-white text-sm font-bold mb-2"
+                  >
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    className="border rounded w-full py-2 px-3 text-gray-700"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className="mb-6">
+                  <label
+                    htmlFor="password"
+                    className="block text-white text-sm font-bold mb-2"
+                  >
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+                <div className="flex items-center justify-between">
+                  <button
+                    type="submit"
+                    className="bg-green-500 w-full text-white font-bold py-2 px-4 rounded"
+                  >
+                    Login
+                  </button>
+                </div>
+                <div className="mt-4 text-center">
+                  <p className="text-white">
+                    Don't have an account?{" "}
+                    <Link to="/register">
+                      <div className="text-blue-500 hover:text-blue-700">
+                        Register
+                      </div>
+                    </Link>
+                  </p>
+                </div>
+              </form>
             </div>
-          </div>
-          <div className="flex items-center justify-center">
-            <form
-              className="bg-white p-8 rounded shadow-md w-full max-w-md"
-              onSubmit={loginFunc}
-            >
-              <div className="mb-4">
-                <label
-                  htmlFor="email"
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  placeholder="Enter your email"
-                  className="border rounded w-full py-2 px-3 text-gray-700"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="mb-6">
-                <label
-                  htmlFor="password"
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                >
-                  Password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  placeholder="Enter your password"
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <div className="flex items-center justify-between">
-                <button
-                  type="submit"
-                  className="bg-green-500 w-full text-white font-bold py-2 px-4 rounded"
-                >
-                  Login
-                </button>
-              </div>
-              <div className="mt-4 text-center">
-                <p className="text-gray-600">
-                  Don't have an account?{" "}
-                  <Link to="/register">
-                    <div className="text-blue-500 hover:text-blue-700">
-                      Register
-                    </div>
-                  </Link>
-                </p>
-              </div>
-            </form>
           </div>
         </div>
-      </div>
+      </div>{" "}
     </MainNav>
   );
 }

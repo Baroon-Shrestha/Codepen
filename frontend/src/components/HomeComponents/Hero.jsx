@@ -17,7 +17,7 @@ export default function Hero() {
         <div className=" flex flex-col gap-4 ">
           <div className="flex items-center gap-4">
             <div className="w-[150px]">
-              <img src="./codepen-black.png" alt="" />
+              <img src="./codepen-white.png" alt="" />
             </div>
             <div className="text-4xl font-bold">
               The best place to build, test, and discover front-end code.

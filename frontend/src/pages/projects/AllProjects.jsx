@@ -6,7 +6,9 @@ export default function AllProjects() {
   return (
     <div>
       <MainNav>
-        <h1>All projects</h1>
+        <div className="text-center capitalize text-3xl">
+          <h1 className="">All projects</h1>
+        </div>
         <AllCard />
       </MainNav>
     </div>

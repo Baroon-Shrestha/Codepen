@@ -3,6 +3,7 @@ import Editor from "./Editor";
 import Nav from "../Navbar/Nav";
 import { backendUrl } from "../../../url";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function EditorOut() {
   const [html, setHtml] = useState("");
@@ -10,12 +11,15 @@ export default function EditorOut() {
   const [js, setJs] = useState("");
   const [srcDoc, setSrcDoc] = useState("");
   const [title, setTitle] = useState("");
+  const [getTitle, setGetTitle] = useState(false);
 
   const [openEditors, setOpenEditors] = useState({
     html: true,
     css: true,
     js: true,
   });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const oldTimeOut = setTimeout(() => {
@@ -40,19 +44,20 @@ export default function EditorOut() {
 
   const saveCode = async () => {
     try {
+      const token = localStorage.getItem("userDetails");
+
+      if (!token) {
+        alert("You need to be logged in to save the code.");
+        navigate("/login");
+        return;
+      }
+
       const title = prompt("Enter the title for your code:");
       if (!title) {
         alert("Title is required to save the code");
         return;
       }
       setTitle(title);
-
-      localStorage.setItem(
-        "savedCode",
-        JSON.stringify({ title, html, css, js })
-      );
-
-      const token = localStorage.getItem("token");
 
       const res = await axios.post(
         `${backendUrl}/codepen/save`,
@@ -83,7 +88,7 @@ export default function EditorOut() {
   };
 
   return (
-    <div className="">
+    <div className="bg-secondary h-screen">
       <Nav save={saveCode} title={title} />
       <div className="bg-back rounded-lg flex grow basis-0 gap-[.5rem] p-4">
         <Editor
@@ -111,8 +116,9 @@ export default function EditorOut() {
           toggleOpenClose={() => toggleOpenClose("js")}
         />
       </div>
+      <div className="py-4 text-center text-2xl">output</div>
 
-      <div className="bg-slate-600 h-screen">
+      <div className="bg-white h-3/6">
         <iframe
           srcDoc={srcDoc}
           title="Output"

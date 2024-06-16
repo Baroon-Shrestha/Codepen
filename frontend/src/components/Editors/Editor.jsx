@@ -18,11 +18,11 @@ export default function Editor(props) {
   return (
     <div
       className={` transition-width duration-500 ${
-        isOpen ? "ax-w-[474px] w-full" : "w-[25%]"
-      }`}
+        isOpen ? "w-full" : "w-[25%]"
+      } bg-primary rounded-2xl`}
     >
-      <div className="flex justify-between p-2 radius  bg-slate-200 ">
-        <div>{language}</div>
+      <div className="flex justify-between p-2 bg-slte-200 ">
+        <div className="tex">{language}</div>
         <button onClick={toggleOpenClose}>
           {isOpen ? <FiMinimize2 /> : <FiMaximize2 />}
         </button>
