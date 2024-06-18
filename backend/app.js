@@ -10,7 +10,8 @@ import cookieParser from "cookie-parser";
 export const app = express();
 
 app.use(cors({
-    origin: true,
+    // origin: true,
+    origin: "https://codepen-clone-iota-gold.vercel.app",
     methods: ['GET', 'POST', 'DELETE', 'PUT'],
     credentials: true
 }))
