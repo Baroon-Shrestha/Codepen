@@ -9,8 +9,24 @@
   box-sizing: border-box;
   font-family: "Telefon", Sans-Serif;
   font-weight: 400;
-  color: white
+  color: white;
 }
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background-color: #131417;
+}
+
+#root {
+  height: 100%;
+}
+
+.text {
+  color: hsl(233.33deg, 9.89%, 64.31%)
+}
+
 
 .codeMirror {
   width: 100% !important;

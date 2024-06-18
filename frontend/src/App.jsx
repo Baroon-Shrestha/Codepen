@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AllProjects from "./pages/projects/AllProjects";
 import YourProjects from "./pages/projects/YourProjects";
+import OpenEditor from "./components/Editors/OpenEditor";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/projects" element={<AllProjects />} />
         <Route path="/yourprojects" element={<YourProjects />} />
+        <Route path="/editor/:id" element={<OpenEditor />} />
       </Routes>
     </BrowserRouter>
   );

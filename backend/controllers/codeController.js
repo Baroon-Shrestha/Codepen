@@ -6,7 +6,7 @@ export const saveCode = async (req, res) => {
     const { title, html, css, js } = req.body;
 
     try {
-        let existingSnippet = await code.findOne({ userId, title });
+        let existingSnippet = await code.findOne({ title });
 
         if (existingSnippet) {
             existingSnippet.html = html;
@@ -31,6 +31,7 @@ export const saveCode = async (req, res) => {
             return res.send({
                 success: true,
                 message: "Code added successfully",
+                newCodeSnippet
             });
         }
     } catch (error) {
@@ -62,7 +63,7 @@ export const viewOne = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const view = await code.findById(id);
+        const view = await code.findById(id).populate('userId');
 
         if (!view) {
             return res.status(404).send({
@@ -148,9 +149,34 @@ export const updateCode = async (req, res) => {
     })
 
     let updateCodeSnippet = await code.findById(id)
-    if (updateCodeSnippet.userId != userId) res.status(403).send("you dont't have access to update this code snippet")
+    console.log(updateCodeSnippet)
+    if (!updateCodeSnippet) res.send("code snippet not found")
+    if (updateCodeSnippet.userId != userId) return res.status(403).send("you dont't have access to update this code snippet")
 
     updateCodeSnippet = await code.findByIdAndUpdate(id, req.body, { new: true })
+
+    res.status(200).send({
+        success: true,
+        message: "Code snippet updated successfully",
+        updateCodeSnippet
+    })
+}
+
+export const updateTitle = async (req, res) => {
+    const { id: userId } = req.user
+    const { id } = req.params
+    const { title } = req.body
+
+    if (!id) return res.status(404).send({
+        success: false,
+        message: "code snippet not found"
+    })
+
+    let updateCodeSnippet = await code.findById(id)
+    if (updateCodeSnippet.userId._id != userId) return res.status(403).send("you dont't have access to update this code snippet")
+
+    updateCodeSnippet.title = title;
+    await updateCodeSnippet.save();
 
     res.status(200).send({
         success: true,

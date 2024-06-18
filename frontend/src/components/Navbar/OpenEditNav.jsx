@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import logo from "../../assets/logo.png";
+import { MdEdit } from "react-icons/md";
 
-export default function Nav({ save, title }) {
+export default function OpenEditNav({ title, update, editName, projectUser }) {
   const [loggedIn, setLoggedIn] = useState(null);
 
   const handleLogout = () => {
@@ -20,31 +22,36 @@ export default function Nav({ save, title }) {
   return (
     <>
       <div className="flex justify-between bg-black items-center p-2">
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
           <div>
             <Link to="/">
-              <img src="./codepen-white.png" alt="" className="h-[35px]" />
+              <img src={logo} alt="" className="h-[35px]" />
             </Link>
           </div>
           <div>
-            <div className="text-[1.3rem]">{title ? title : "Untitled"}</div>
-            {loggedIn ? (
-              <div className="text-white flex items-center">
-                <span className="text-[.9rem] text">
-                  {loggedIn.user.userName}
-                </span>
-              </div>
-            ) : (
-              <>
-                <div className="text-[.9rem] text">Captain Anonymous</div>
-              </>
-            )}
+            <div className="flex items-center gap-2">
+              <div className="text-[1.3rem]">{title ? title : "Untitled"}</div>
+              {loggedIn ? (
+                <div className="" onClick={editName}>
+                  <MdEdit />
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+            <div className="text-white flex items-center">
+              <span className="text-[.9rem] text">{projectUser}</span>
+            </div>
           </div>
         </div>
         <div className="flex gap-2">
-          <div className="p-2 bg-slate-600 rounded-md text-white">
-            <button onClick={save}>Save Code</button>
-          </div>
+          {loggedIn ? (
+            <div className="p-2 bg-slate-600 rounded-md text-white">
+              <button onClick={update}>Update Code</button>
+            </div>
+          ) : (
+            ""
+          )}
           {loggedIn ? (
             <div className="text-white flex items-center">
               welcome,&nbsp;{" "}

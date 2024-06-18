@@ -25,8 +25,7 @@ export default function Login() {
       const data = res.data;
       if (data.success) {
         localStorage.setItem("userDetails", JSON.stringify(data));
-        alert("Login successful! Moving to the home page.");
-        navigate("/");
+        navigate(-1);
       } else {
         alert("Login failed! Please check your credentials and try again.");
       }

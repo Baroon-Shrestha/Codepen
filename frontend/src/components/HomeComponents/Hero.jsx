@@ -12,7 +12,7 @@ export default function Hero() {
   // }, []);
 
   return (
-    <div className="mx-16">
+    <div className="mx-16 ">
       <div className="grid grid-cols-2 py-16  gap-2">
         <div className=" flex flex-col gap-4 ">
           <div className="flex items-center gap-4">
@@ -36,13 +36,6 @@ export default function Hero() {
             <img src="./hero.webp" alt="" />
           </div>
         </div>
-      </div>
-      <div className="text-2xl font-bold">
-        Find inspiration from 1.8 million+ front-end designers and developers.
-      </div>
-      <div>
-        Browse and share work from world-class designers and developers in the
-        front-end community.
       </div>
     </div>
   );

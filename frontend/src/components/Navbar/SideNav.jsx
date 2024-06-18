@@ -1,18 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
-export default function SideNav() {
-  const [isOpen, setIsOpen] = useState(true);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
+export default function SideNav({ isOpen, toggleMenu }) {
   return (
     <div
-      className={`h-screen bg-[#131417] flex flex-col justify-between relative transition-all duration-300 ${
+      className={`bg-secondary flex flex-col justify-between fixed top-0 left-0 h-full transition-all duration-300 ${
         isOpen ? "w-48 translate-x-0" : "w-0 -translate-x-full"
       }`}
     >
@@ -20,7 +14,7 @@ export default function SideNav() {
         className={`flex flex-col gap-3 text-white p-4 ${!isOpen && "hidden"}`}
       >
         <Link to="/">
-          <div className="w-[150px] ">
+          <div className="w-[150px]">
             <img src="codepen-main-white.png" alt="Codepen Logo" />
           </div>
         </Link>

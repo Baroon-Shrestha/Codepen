@@ -9,7 +9,6 @@ export default function OnlyCards() {
   const [loggedIn, setLoggedIn] = useState("");
   const [getLength, setGetLength] = useState(0);
 
-  // Function to fetch data from backend
   const fetchData = async () => {
     try {
       const response = await axios.get(`${backendUrl}/codepen/viewyours`, {
@@ -43,7 +42,7 @@ export default function OnlyCards() {
 
       const { success } = response.data;
       if (success) {
-        alert(`Deleted ${id}`);
+        alert(`Deleted`);
         fetchData();
       } else {
         console.error("Delete request failed.");
@@ -60,32 +59,37 @@ export default function OnlyCards() {
           <div className="grid grid-cols-4 gap-2 mt-4">
             {data.length > 0 ? (
               data.map((item) => (
-                <div className="p-4 border border-black rounded-lg flex flex-col item gap-6">
+                <div className="p-4 bg-secondary border border-black rounded-lg flex flex-col item gap-6">
+                  <iframe
+                    className="bg-white rounded-lg"
+                    srcDoc={`<html>
+                <body>${item.html}</body>
+                <style>${item.css}</style>
+                <script>${item.js}</script>
+              </html>`}
+                    title={item.title}
+                    sandbox="allow-scripts"
+                    frameBorder="0"
+                    width="100%"
+                    height="150px"
+                  />
                   <div key={item._id} className=" flex flex-col gap-8">
                     <div className="flex items-center justify-between">
                       <div className="font-bold text-xl">{item.title}</div>
-                      <button onClick={() => deleteCode(item._id)}>
-                        <div className="p-2 bg-red-600 rounded-full">
+                      <button>
+                        <div
+                          className="p-2 bg-red-600 rounded-full"
+                          onClick={() => deleteCode(item._id)}
+                        >
                           <MdDelete />
                         </div>
                       </button>
                     </div>
                     <div className="flex justify-between items-center">
-                      <div>{item.userId.userName}</div>
-                      <div className="flex gap-2">
-                        <div className="bg-orange-600 text-white p-2 rounded-md">
-                          HTML
-                        </div>
-                        <div className="bg-blue-600 text-white p-2 rounded-md">
-                          CSS
-                        </div>
-                        <div className="bg-yellow-500 text-white p-2 rounded-md">
-                          JS
-                        </div>
-                      </div>
+                      <div className="text">{item.userId.userName}</div>
                     </div>
                   </div>
-                  <Link to="/code-editor">
+                  <Link to={`/editor/${item._id}`}>
                     <div className="text-center p-2 bg-green-600 rounded-md ">
                       Open in editor
                     </div>
@@ -100,12 +104,14 @@ export default function OnlyCards() {
           </div>
         ) : (
           <>
-            <div>Login to view your code snippets.</div>
-            <Link to="/login">
-              <div className="p-2 bg-green-400 rounded-md">
-                <button>Login</button>
-              </div>
-            </Link>
+            <div className="flex flex-col items-center mt-16 gap-4">
+              <div>Login to view your saved code snippets.</div>
+              <Link to="/login">
+                <div className="p-2 w-30 bg-green-400 rounded-md">
+                  <button>Login</button>
+                </div>
+              </Link>
+            </div>
           </>
         )}
       </div>

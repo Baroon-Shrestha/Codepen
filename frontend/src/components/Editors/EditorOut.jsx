@@ -3,15 +3,16 @@ import Editor from "./Editor";
 import Nav from "../Navbar/Nav";
 import { backendUrl } from "../../../url";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function EditorOut() {
-  const [html, setHtml] = useState("");
-  const [css, setCss] = useState("");
-  const [js, setJs] = useState("");
+  const [html, setHtml] = useState(localStorage.getItem("html") || "");
+  const [css, setCss] = useState(localStorage.getItem("css") || "");
+  const [js, setJs] = useState(localStorage.getItem("js") || "");
   const [srcDoc, setSrcDoc] = useState("");
-  const [title, setTitle] = useState("");
-  const [getTitle, setGetTitle] = useState(false);
+  const [title, setTitle] = useState(localStorage.getItem("title") || "");
+  const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   const [openEditors, setOpenEditors] = useState({
     html: true,
@@ -20,6 +21,7 @@ export default function EditorOut() {
   });
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const oldTimeOut = setTimeout(() => {
@@ -52,17 +54,22 @@ export default function EditorOut() {
         return;
       }
 
-      const title = prompt("Enter the title for your code:");
-      if (!title) {
-        alert("Title is required to save the code");
-        return;
+      let currentTitle = title;
+
+      if (!currentTitle) {
+        currentTitle = prompt("Enter the title for your code:");
+        if (!currentTitle) {
+          alert("Title is required to save the code");
+          return;
+        }
+        setTitle(currentTitle);
+        localStorage.setItem("title", currentTitle);
       }
-      setTitle(title);
 
       const res = await axios.post(
         `${backendUrl}/codepen/save`,
         {
-          title,
+          title: currentTitle,
           html,
           css,
           js,
@@ -76,8 +83,19 @@ export default function EditorOut() {
       );
 
       console.log("Response status:", res.status);
+      const Id = res.data.newCodeSnippet.userId;
+
       if (res.status === 201 || res.status === 200) {
+        setUserId(Id);
+
+        localStorage.setItem("title", currentTitle);
+        localStorage.setItem("html", html);
+        localStorage.setItem("css", css);
+        localStorage.setItem("js", js);
+        localStorage.setItem("userId", Id);
+
         alert("Code saved successfully!");
+        setHasUnsavedChanges(false);
       } else {
         alert("Failed to save code");
       }
@@ -86,6 +104,37 @@ export default function EditorOut() {
       alert("An error occurred while saving the code");
     }
   };
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      if (hasUnsavedChanges) {
+        const confirmationMessage =
+          "You have unsaved changes. Are you sure you want to leave?";
+        event.returnValue = confirmationMessage;
+        return confirmationMessage;
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [hasUnsavedChanges]);
+
+  useEffect(() => {
+    setHasUnsavedChanges(true);
+  }, [html, css, js]);
+
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem("html");
+      localStorage.removeItem("css");
+      localStorage.removeItem("js");
+      localStorage.removeItem("title");
+      localStorage.removeItem("userId");
+    };
+  }, [location.pathname]);
 
   return (
     <div className="bg-secondary h-screen">
@@ -116,7 +165,6 @@ export default function EditorOut() {
           toggleOpenClose={() => toggleOpenClose("js")}
         />
       </div>
-      <div className="py-4 text-center text-2xl">output</div>
 
       <div className="bg-white h-3/6">
         <iframe
